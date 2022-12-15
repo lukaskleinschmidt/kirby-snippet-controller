@@ -1,9 +1,10 @@
 # Kirby Snippet Controller
-Define snippet controllers in a similar way how page controllers work.
+Define snippet controllers in a similar way to how page controllers work.
+
+## How to use it
 By default the plugin will try to find controllers in your `snippets` directory.
 Lets have a look at a example `header` snippet.
 
-## How to use it
 ```bash
 📁 snippets
 ├─ 📄 header.controller.php
@@ -27,7 +28,7 @@ return [
 
 ```
 
-You can also define controllers in a plugin.
+You can also define snippet controllers in a plugin.
 ```php
 Kirby::plugin('superwoman/superplugin', [
     'snippets' => [
@@ -52,7 +53,11 @@ Kirby::plugin('superwoman/superplugin', [
 ```
 
 ### Available callback arguments in your controllers
-Like in regular controllers, you can access the `$site`, `$page`, `$pages` and `$kirby` objects by loading them as arguments to the anonymous function. The plugin will inject the right objects for you. In addition, you also have access to the `$data` argument, which contains the data you passed to the snippet.
+Like in regular controllers, you can access the `$site`, `$page`, `$pages` and `$kirby` objects by loading them as arguments to the anonymous function. The plugin will inject the right objects for you. In addition, you also have access to the `$data` argument, which is the array of data you passed to the snippet.
+
+```php
+<?php snippet('header', data: ['title' => 'My Title']) ?>
+```
 
 ### Naming convention
 By default, the plugin searches for controllers by appending `.controller` to the snippet name. You can change the name resolver in the options. Changing the name also affects plugin-defined controllers.
