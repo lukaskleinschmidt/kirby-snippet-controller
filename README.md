@@ -23,7 +23,7 @@ return function ($site) {
 
 // Or you can simply return an array.
 return [
-    'value' => site()->title(),
+    'title' => site()->title(),
 ];
 
 ```
