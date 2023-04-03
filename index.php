@@ -12,7 +12,7 @@ App::plugin('lukaskleinschmidt/snippet-controller', [
         'snippet' => function (App $kirby, $name, array $data = [], bool $slots = false) {
             $data = snippet_controller($name, $data);
 
-            return $kirby->core()->components()['snippet'](
+            return $kirby->nativeComponent('snippet')(
                 $kirby,
                 $name,
                 $data,
