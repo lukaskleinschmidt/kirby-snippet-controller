@@ -41,15 +41,7 @@ if (! function_exists('snippet_controller')) {
         }
 
         if ($value instanceof Closure) {
-            $kirby = App::instance();
-
-            $value = (new Controller($value))->call($kirby, [
-                'kirby' => $kirby,
-                'site'  => $site = $kirby->site(),
-                'pages' => $site->children(),
-                'page'  => $site->page(),
-                'data'  => $data,
-            ]);
+            $value = (new Controller($value))->call(App::instance(), $data);
         }
 
         return is_array($value) ? array_merge($value, $data) : $data;

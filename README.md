@@ -53,14 +53,27 @@ Kirby::plugin('superwoman/superplugin', [
 ```
 
 ### Available callback arguments in your controllers
-Like in regular controllers, you can access the `$site`, `$page`, `$pages` and `$kirby` objects by loading them as arguments to the anonymous function. The plugin will inject the right objects for you. In addition, you also have access to the `$data` argument, which is the array of data you passed to the snippet.
+You have access to all variables that are also accessible in the snippet.
+If you pass additional data to the snippet, you can access it in the controller as well.
+
+> **Note**
+> Since version [`2.0.0`](https://github.com/lukaskleinschmidt/kirby-snippet-controller/releases/tag/2.0.0) and Kirby [`3.9.6`](https://github.com/getkirby/kirby/releases/tag/3.9.6) you can also use variadic arguments.
 
 ```php
-<?php snippet('header', data: ['title' => 'My Title']) ?>
+snippet('header', data: ['title' => 'My Title'])
+
+// header.controller.php
+
+return function (string $title = 'Default Title', ...$args) {
+    return [
+        'title' => $title,
+    ];
+};
 ```
 
 ### Naming convention
-By default, the plugin searches for controllers by appending `.controller` to the snippet name. You can change the name resolver in the options. Changing the name also affects plugin-defined controllers.
+By default, the plugin searches for controllers by appending `.controller` to the snippet name.
+You can change the name resolver in the options. Changing the name also affects plugin-defined controllers.
 ```php
 // config.php
 
