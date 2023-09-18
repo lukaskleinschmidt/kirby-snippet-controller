@@ -40,10 +40,14 @@ if (! function_exists('snippet_controller')) {
             $value = F::load($value);
         }
 
+        if (is_array($value)) {
+            return array_merge($value, $data);
+        }
+
         if ($value instanceof Closure) {
             $value = (new Controller($value))->call(App::instance(), $data);
         }
 
-        return is_array($value) ? array_merge($value, $data) : $data;
+        return is_array($value) ? array_merge($data, $value) : $data;
     }
 }
