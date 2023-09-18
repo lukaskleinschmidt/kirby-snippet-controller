@@ -71,6 +71,32 @@ return function (string $title = 'Default Title', ...$args) {
 };
 ```
 
+> **Note**
+> Since version [`2.1.0`](https://github.com/lukaskleinschmidt/kirby-snippet-controller/releases/tag/2.1.0) you can override variables when using a controller callback.
+
+```php
+snippet('header', data: ['size' => $page->size()])
+
+// header.controller.php
+
+return function (Field|string $size = null) {
+
+    if ($size instanceof Field) {
+        $size = $size->value();
+    }
+
+    $size = match ($size) {
+        'small'  => 'height: 50vh',
+        'medium' => 'height: 80vh',
+        default  => 'height: 100vh',
+    };
+
+    return [
+        'size' => $size,
+    ];
+};
+```
+
 ### Naming convention
 By default, the plugin searches for controllers by appending `.controller` to the snippet name.
 You can change the name resolver in the options. Changing the name also affects plugin-defined controllers.
