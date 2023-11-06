@@ -4,8 +4,12 @@ use Kirby\Cms\App;
 use Kirby\Filesystem\F;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Controller;
+use LukasKleinschmidt\PreventSnippetException;
 
 if (! function_exists('snippet_controller_value')) {
+    /**
+     * Returns the snippet controller value.
+     */
     function snippet_controller_value(string|array $name): mixed
     {
         $kirby = App::instance();
@@ -30,6 +34,9 @@ if (! function_exists('snippet_controller_value')) {
 }
 
 if (! function_exists('snippet_controller')) {
+    /**
+     * Aggregates snippet data.
+     */
     function snippet_controller(string|array $name, array $data = []): array
     {
         if (is_null($value = snippet_controller_value($name))) {
@@ -49,5 +56,18 @@ if (! function_exists('snippet_controller')) {
         }
 
         return is_array($value) ? array_merge($data, $value) : $data;
+    }
+}
+
+if (! function_exists('snippet_prevent')) {
+    /**
+     * Prevent a snippet from rendering.
+     * Should only be used in snippet controller callbacks.
+     *
+     * @throws \LukasKleinschmidt\PreventSnippetException
+     */
+    function snippet_prevent(): never
+    {
+        throw new PreventSnippetException;
     }
 }

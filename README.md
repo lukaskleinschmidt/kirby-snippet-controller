@@ -97,6 +97,25 @@ return function (Field|string $size = null) {
 };
 ```
 
+> **Note**
+> Since version [`2.2.0`](https://github.com/lukaskleinschmidt/kirby-snippet-controller/releases/tag/2.2.0) you can prevent a snippet from rendering in a controller callback.
+
+```php
+snippet('header', data: ['size' => $page->size()])
+
+// header.controller.php
+
+return function (Field|string $size = null) {
+    if (is_null($size)) {
+        snippet_prevent();
+    }
+
+    return [
+        'size' => $size,
+    ];
+};
+```
+
 ### Naming convention
 By default, the plugin searches for controllers by appending `.controller` to the snippet name.
 You can change the name resolver in the options. Changing the name also affects plugin-defined controllers.
